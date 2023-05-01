@@ -35,7 +35,7 @@
 }
 
 .keybord-key {
-  width: 6%;
+  width: 5.6%;
   height: 40px;
   max-width: 100px;
   border: none;
@@ -48,8 +48,7 @@
   align-items: center;
   justify-content: center;
   vertical-align: top;
-  position: relative;
-
+  transition: 0.3s all linear;
 }
 
 .keybord-key:active {
@@ -57,5 +56,28 @@
 }
 
 .keybord-key:hover {
-  background: grey;
+  background: greenyellow;;
 }
+/*Capslock, Backspace, right-shift*/
+.keybord-key-wide {
+  width: 12%;
+  max-width: 200px;
+}
+ /*space*/
+.keybord-key-the-widest {
+  width: 36%;
+  max-width: 600px;
+}
+
+/*Enter, left-shift*/
+.keybord-key-middle {
+  width: 10%;
+  max-width: 200px;
+}
+
+/*Del, Tab */
+.keybord-key-tab-del {
+  width: 6.5%;
+  max-width: 200px;
+}
+
