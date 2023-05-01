@@ -77,6 +77,8 @@ const Keyboard = {
     this.elements.keysContainer.className = 'keyboard-keys';
 
     this.elements.keysContainer.append(this.createKeys())
+    this.elements.keys= this.elements.keysContainer.querySelectorAll('button')
+    console.log(this.elements.keys)
     this.elements.wrapper.append(this.elements.keysContainer);
     document.body.append(this.elements.wrapper)
   },
@@ -163,10 +165,10 @@ const Keyboard = {
 
           keyBtn.addEventListener('click',()=>{
             if(this.properties.capsLockMode){
-              this.properties.value+=key.toLocaleUpperCase();
+              this.properties.value+=key.toUpperCase();
             }
             else{
-              this.properties.value+=key.toLocaleLowerCase();
+              this.properties.value+=key.toLowerCase();
   
             }
             this.triggerEvent('oninput')
@@ -197,7 +199,24 @@ const Keyboard = {
   },
 
   activateCapsLock() {
-    
+    this.properties.capsLockMode = !this.properties.capsLockMode;
+    const letters = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+    "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"]
+
+    for(let i=0; i< this.elements.keys.length; i++){
+      console.log(this.elements.keys[i].textContent.toUpperCase())
+      if(letters.includes(this.elements.keys[i].textContent)){
+        if(this.properties.capsLockMode){
+          this.elements.keys[i].textContent.toUpperCase()
+        }
+        else{
+          this.elements.keys[i].textContent.toLowerCase()
+        }
+
+
+      }
+    }
+
   },
   
 }
