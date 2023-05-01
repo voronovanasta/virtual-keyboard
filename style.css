@@ -1,0 +1,61 @@
+.wrapper {
+  margin: 0 auto;
+  text-align: center;
+
+}
+
+.title {
+  font-weight: 700;
+  line-height: 15px;
+}
+
+.textarea {
+  display: block;
+  margin: 10px auto;
+  width: 700px;
+  height: 200px;
+  padding: 10px;
+}
+
+.keyboard-wrapper {
+  display: block;
+  margin: 0 auto;
+  width: 700px;
+  height: 200px;
+  padding: 5px;
+  background: grey;
+  user-select: none;
+  border-radius: 5px;
+  border: 3px solid black;
+
+}
+
+.keyboard-keys {
+  text-align: center;
+}
+
+.keybord-key {
+  width: 6%;
+  height: 40px;
+  max-width: 100px;
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  background: #444444;
+  cursor: pointer;
+  margin: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+  position: relative;
+
+}
+
+.keybord-key:active {
+  background: gainsboro;
+}
+
+.keybord-key:hover {
+  background: grey;
+}
