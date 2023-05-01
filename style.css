@@ -21,8 +21,8 @@
   display: block;
   margin: 0 auto;
   width: 700px;
-  height: 200px;
-  padding: 5px;
+  height: 230px;
+  padding: 3px;
   background: grey;
   user-select: none;
   border-radius: 5px;
@@ -65,19 +65,19 @@
 }
  /*space*/
 .keybord-key-the-widest {
-  width: 36%;
+  width: 44%;
   max-width: 600px;
 }
 
 /*Enter, left-shift*/
 .keybord-key-middle {
-  width: 10%;
+  width: 12%;
   max-width: 200px;
 }
 
 /*Del, Tab */
 .keybord-key-tab-del {
-  width: 6.5%;
+  width: 6%;
   max-width: 200px;
 }
 
