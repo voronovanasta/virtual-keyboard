@@ -77,7 +77,7 @@ const Keyboard = {
     this.elements.keysContainer.className = 'keyboard-keys';
 
     this.elements.keysContainer.append(this.createKeys())
-    this.elements.keys= this.elements.keysContainer.querySelectorAll('button')
+    this.elements.keys= this.elements.keysContainer.querySelectorAll('.keyboard-key')
     console.log(this.elements.keys)
     this.elements.wrapper.append(this.elements.keysContainer);
     document.body.append(this.elements.wrapper)
@@ -86,7 +86,7 @@ const Keyboard = {
   triggerEvent(EventName){
 
   },
-  
+
   createKeys(){
     let countKey = 0;
     const fragment = document.createDocumentFragment();
@@ -100,13 +100,13 @@ const Keyboard = {
 
     keyLayout.forEach(key=>{
       const keyBtn = document.createElement('button');
-      keyBtn.classList.add('keybord-key');
-      //if not -1- insert a new line
+      keyBtn.setAttribute('type', 'button')
+      keyBtn.classList.add('keyboard-key');
       const newLine = ["Backspace", "Del", "Enter"].indexOf(key)
 
       switch(key){
         case "Backspace":
-          keyBtn.classList.add('keybord-key-wide')
+          keyBtn.classList.add('keyboard-key-wide')
           keyBtn.innerHTML= "Backspace"
 
           keyBtn.addEventListener('click', ()=>{
@@ -116,7 +116,7 @@ const Keyboard = {
           break;
 
         case "CapsLock":
-            keyBtn.classList.add('keybord-key-wide')
+            keyBtn.classList.add('keyboard-key-wide')
             keyBtn.innerHTML= "CapsLock";
             keyBtn.addEventListener('click', ()=>{
               this.activateCapsLock();
@@ -124,7 +124,7 @@ const Keyboard = {
           break;
         
           case "Shift":
-            keyBtn.classList.add('keybord-key-wide')
+            keyBtn.classList.add('keyboard-key-wide')
             keyBtn.innerHTML= "Shift";
             keyBtn.addEventListener('mousedown', ()=>{
               this.activateCapsLock();
@@ -135,7 +135,7 @@ const Keyboard = {
           break;
 
         case "Enter":
-            keyBtn.classList.add('keybord-key-middle')
+            keyBtn.classList.add('keyboard-key-middle')
             keyBtn.innerHTML= "Enter";
             keyBtn.addEventListener('click', ()=>{
               this.properties.value+='\n';
@@ -144,7 +144,7 @@ const Keyboard = {
         break;
 
         case "Space":
-            keyBtn.classList.add('keybord-key-the-widest')
+            keyBtn.classList.add('keyboard-key-the-widest')
             keyBtn.innerHTML= "";
             keyBtn.addEventListener('click', ()=>{
               this.properties.value+=' ';
@@ -153,7 +153,7 @@ const Keyboard = {
         break;
 
         case "Tab":
-          keyBtn.classList.add('keybord-key-tab-del')
+          keyBtn.classList.add('keyboard-key-tab-del')
           keyBtn.innerHTML= "Tab";
           keyBtn.addEventListener('click', ()=>{
             this.properties.value+=' ';
@@ -161,7 +161,7 @@ const Keyboard = {
           })
       break;
         default:
-          keyBtn.textContent = key;
+          keyBtn.innerHTML = key;
 
           keyBtn.addEventListener('click',()=>{
             if(this.properties.capsLockMode){
@@ -179,13 +179,9 @@ const Keyboard = {
 
       if(newLine>=0){
         fragment.append(document.createElement('br'))
-        console.log(keyLayout.indexOf(key))
-        console.log(key)
       }
 
       countKey++
-
-
       if(countKey === 55){
         fragment.append(document.createElement('br'))
       }
@@ -204,7 +200,8 @@ const Keyboard = {
     "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"]
 
     for(let i=0; i< this.elements.keys.length; i++){
-      console.log(this.elements.keys[i].textContent.toUpperCase())
+      
+
       if(letters.includes(this.elements.keys[i].textContent)){
         if(this.properties.capsLockMode){
           this.elements.keys[i].textContent.toUpperCase()

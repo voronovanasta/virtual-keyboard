@@ -34,7 +34,7 @@
   text-align: center;
 }
 
-.keybord-key {
+.keyboard-key {
   width: 5.6%;
   height: 40px;
   max-width: 100px;
@@ -48,35 +48,36 @@
   align-items: center;
   justify-content: center;
   vertical-align: top;
-  transition: 0.3s all linear;
+  transition: 0.1s all linear;
+}
+.keyboard-key:hover {
+  background:#d4e1c0;
 }
 
-.keybord-key:active {
-  background: gainsboro;
+.keyboard-key:active {
+  background: greenyellow;
 }
 
-.keybord-key:hover {
-  background: greenyellow;;
-}
+
 /*Capslock, Backspace, right-shift*/
-.keybord-key-wide {
+.keyboard-key-wide {
   width: 12%;
   max-width: 200px;
 }
  /*space*/
-.keybord-key-the-widest {
+.keyboard-key-the-widest {
   width: 44%;
   max-width: 600px;
 }
 
 /*Enter, left-shift*/
-.keybord-key-middle {
+.keyboard-key-middle {
   width: 12%;
   max-width: 200px;
 }
 
 /*Del, Tab */
-.keybord-key-tab-del {
+.keyboard-key-tab-del {
   width: 6%;
   max-width: 200px;
 }
