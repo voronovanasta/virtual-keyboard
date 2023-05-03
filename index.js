@@ -7,9 +7,10 @@ title.className = 'title';
 body.append(title);
 
 const textarea = document.createElement('textarea');
-textarea.className = 'textarea';
+textarea.className = 'textarea use-keyboard-input';
 textarea.rows = 5;
 textarea.cols = 50;
+textarea.setAttribute('autofocus', 'autofocus')
 
 body.append(textarea);
 
@@ -60,7 +61,6 @@ const Keyboard = {
 
   eventHandlers: {
     oninput: null,
-    onclose: null
 },
 
   properties: {
@@ -78,12 +78,23 @@ const Keyboard = {
 
     this.elements.keysContainer.append(this.createKeys())
     this.elements.keys= this.elements.keysContainer.querySelectorAll('.keyboard-key')
-    console.log(this.elements.keys)
+
     this.elements.wrapper.append(this.elements.keysContainer);
     document.body.append(this.elements.wrapper)
+
+    document.querySelectorAll(".use-keyboard-input").forEach(element => {
+      element.addEventListener("focus", () => {
+          this.open(element.value, currentValue => {
+              element.value = currentValue;
+          });
+      });
+  });
   },
 
-  triggerEvent(EventName){
+  triggerEvent(handlerName){
+    if (typeof this.eventHandlers[handlerName] == "function") {
+      this.eventHandlers[handlerName](this.properties.value);
+  }
 
   },
 
@@ -120,6 +131,7 @@ const Keyboard = {
             keyBtn.innerHTML= "CapsLock";
             keyBtn.addEventListener('click', ()=>{
               this.activateCapsLock();
+              console.log("capslock on switch")
             })
           break;
         
@@ -165,7 +177,9 @@ const Keyboard = {
 
           keyBtn.addEventListener('click',()=>{
             if(this.properties.capsLockMode){
+              
               this.properties.value+=key.toUpperCase();
+              console.log("capslock on default")
             }
             else{
               this.properties.value+=key.toLowerCase();
@@ -199,23 +213,27 @@ const Keyboard = {
     const letters = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
     "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"]
 
-    for(let i=0; i< this.elements.keys.length; i++){
-      
+    const allKeys = Array.from(this.elements.keysContainer.querySelectorAll('.keyboard-key'))
 
-      if(letters.includes(this.elements.keys[i].textContent)){
-        if(this.properties.capsLockMode){
-          this.elements.keys[i].textContent.toUpperCase()
+    
+      for(let i=0; i< allKeys.length; i++){
+        if(this.properties.capsLockMode && letters.includes(allKeys[i].textContent)){
+          allKeys[i].textContent = allKeys[i].textContent.toUpperCase()
+          console.log(allKeys[i].textContent)
+            console.log("capslock on activate")
+
         }
         else{
-          this.elements.keys[i].textContent.toLowerCase()
+            allKeys[i].textContent = allKeys[i].textContent.toLowerCase()
         }
-
-
-      }
-    }
-
+       }
   },
-  
+
+  open(initialValue, oninput) {
+    /*this.properties.value = initialValue || "";*/
+    this.eventHandlers.oninput = oninput;
+},
+
 }
 
 window.addEventListener("DOMContentLoaded", function () {
