@@ -1,0 +1,89 @@
+.wrapper {
+  margin: 0 auto;
+  text-align: center;
+
+}
+
+.title {
+  font-weight: 700;
+  line-height: 15px;
+}
+
+.textarea {
+  display: block;
+  margin: 10px auto;
+  width: 700px;
+  height: 200px;
+  padding: 10px;
+}
+
+.keyboard-wrapper {
+  display: block;
+  margin: 0 auto;
+  width: 700px;
+  height: 230px;
+  padding: 3px;
+  background: grey;
+  user-select: none;
+  border-radius: 5px;
+  border: 3px solid black;
+
+}
+
+.keyboard-keys {
+  text-align: center;
+}
+
+.keyboard-key {
+  width: 5.6%;
+  height: 40px;
+  max-width: 100px;
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  background: #444444;
+  cursor: pointer;
+  margin: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+  transition: 0.1s all linear;
+}
+.keyboard-key:hover {
+  background:#d4e1c0;
+}
+
+.keyboard-key:active {
+  background: greenyellow;
+}
+
+
+/*Capslock, Backspace, right-shift*/
+.keyboard-key-wide {
+  width: 12%;
+  max-width: 200px;
+}
+ /*space*/
+.keyboard-key-the-widest {
+  width: 44%;
+  max-width: 600px;
+}
+
+/*Enter, left-shift*/
+.keyboard-key-middle {
+  width: 12%;
+  max-width: 200px;
+}
+
+/*Del, Tab */
+.keyboard-key-tab-del {
+  width: 6%;
+  max-width: 200px;
+}
+
+.text {
+  margin: 10px auto;
+  text-align: center;
+}
+
