@@ -66,6 +66,7 @@ const Keyboard = {
   properties: {
     value: "",
     capsLockMode: false,
+    lang: false,
   },
 
   init() {
@@ -101,13 +102,31 @@ const Keyboard = {
   createKeys(){
     let countKey = 0;
     const fragment = document.createDocumentFragment();
-    const keyLayout = [
+    const keyLayoutEn = [
             "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace",
             "Tab","q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\", "Del",
             "CapsLock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'",  "Enter",
             "Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "&#9650;", "Shift",
             "Ctrl", "Win", "Alt", "Space", "Alt", "&#129080;", "&#9660;", "&#129082;", "Ctrl"
         ];
+
+    const keyLayoutRu = [
+          "ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace",
+          "Tab","й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", "\\", "Del",
+          "CapsLock", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э",  "Enter",
+          "Shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", "&#9650;", "Shift",
+          "Ctrl", "Win", "Alt", "Space", "Alt", "&#129080;", "&#9660;", "&#129082;", "Ctrl"
+      ];
+
+    let keyLayout = [] 
+
+    if(this.properties.lang ){
+
+      keyLayout = keyLayoutRu
+    }
+    else{
+      keyLayout = keyLayoutEn
+    }
 
     keyLayout.forEach(key=>{
       const keyBtn = document.createElement('button');
@@ -116,6 +135,15 @@ const Keyboard = {
       const newLine = ["Backspace", "Del", "Enter"].indexOf(key)
 
       switch(key){
+        case "Ctrl":
+          keyBtn.innerHTML= "Ctrl"
+          break;
+        case "Win":
+            keyBtn.innerHTML= "Win"
+          break;
+        case "Alt":
+            keyBtn.innerHTML= "Alt"
+        break;
         case "Backspace":
           keyBtn.classList.add('keyboard-key-wide')
           keyBtn.innerHTML= "Backspace"
@@ -134,7 +162,7 @@ const Keyboard = {
               console.log("capslock on switch")
             })
           break;
-        
+
           case "Shift":
             keyBtn.classList.add('keyboard-key-wide')
             keyBtn.innerHTML= "Shift";
@@ -177,13 +205,11 @@ const Keyboard = {
 
           keyBtn.addEventListener('click',()=>{
             if(this.properties.capsLockMode){
-              
               this.properties.value+=key.toUpperCase();
               console.log("capslock on default")
             }
             else{
               this.properties.value+=key.toLowerCase();
-  
             }
             this.triggerEvent('oninput')
 
@@ -199,8 +225,6 @@ const Keyboard = {
       if(countKey === 55){
         fragment.append(document.createElement('br'))
       }
-
-
     })
 
     return fragment
@@ -214,8 +238,6 @@ const Keyboard = {
     "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"]
 
     const allKeys = Array.from(this.elements.keysContainer.querySelectorAll('.keyboard-key'))
-
-    
       for(let i=0; i< allKeys.length; i++){
         if(this.properties.capsLockMode && letters.includes(allKeys[i].textContent)){
           allKeys[i].textContent = allKeys[i].textContent.toUpperCase()
@@ -230,7 +252,7 @@ const Keyboard = {
   },
 
   open(initialValue, oninput) {
-    /*this.properties.value = initialValue || "";*/
+    this.properties.value = initialValue || "";
     this.eventHandlers.oninput = oninput;
 },
 
@@ -238,7 +260,57 @@ const Keyboard = {
 
 window.addEventListener("DOMContentLoaded", function () {
   Keyboard.init();
+  addInfo()
 });
 
+/*document.querySelector(".keyboard-wrapper").addEventListener('click',()=>{
+  document.querySelectorAll(".use-keyboard-input").tabIndex = '1'
+})*/
 
-console.log('&#129080;')
+document.addEventListener('keydown', (event)=>{
+  if(event.ctrlKey && event.altKey){
+    Keyboard.properties.lang = !Keyboard.properties.lang
+    document.querySelectorAll('.keyboard-keys').forEach(el=>{
+      el.remove()
+    })
+    const keyboardKeys = document.createElement('div');
+    keyboardKeys.className = 'keyboard-keys';
+    document.querySelector('.keyboard-wrapper').append(keyboardKeys)
+    document.querySelector('.keyboard-keys').append(Keyboard.createKeys())
+    
+  }
+})
+
+function setLocalStorage() {
+
+  localStorage.setItem('lang', Keyboard.properties.lang);
+}
+
+window.addEventListener('beforeunload',()=>{
+  setLocalStorage()
+
+})
+
+function getLocalStorage() {
+
+  if(localStorage.getItem('lang')) {
+    Keyboard.properties.lang = localStorage.getItem('lang');
+
+  }
+}
+
+window.addEventListener('load', ()=>{
+  getLocalStorage()
+})
+
+function addInfo(){
+  const language = document.createElement('p')
+language.className = 'text'
+const system = document.createElement('p')
+language.className = 'text'
+system.textContent = 'Клавиатура создана в операционной системе Windows'
+language.textContent = 'Для переключения языка комбинация: левыe ctrl + alt'
+document.body.append(system)
+document.body.append(language)
+
+}
